@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 20, 20, 20;
+  --background-end-rgb: 40, 40, 40;
+  --primary-color: 218, 165, 32; /* Golden color */
+  --secondary-color: 139, 69, 19; /* Brown color */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  font-family: "Cinzel", serif;
+}
+
+.card {
+  background-color: rgba(var(--secondary-color), 0.8);
+  border: 2px solid rgb(var(--primary-color));
+}
+
+.card:hover {
+  box-shadow: 0 0 15px rgba(var(--primary-color), 0.5);
+}
+
