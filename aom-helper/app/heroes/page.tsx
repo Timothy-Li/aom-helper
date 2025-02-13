@@ -1,15 +1,31 @@
-import HeroCard from "./HeroCard"
+import { createClient } from "@supabase/supabase-js";
+import HeroCard from "./HeroCard";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error("Missing Supabase URL or anonymous key");
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function getHeroes() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/heroes`)
-  if (!res.ok) {
-    throw new Error("Failed to fetch heroes")
+  const { data: heroes, error } = await supabase.from("soc_heroes").select("*");
+  if (error) {
+    console.error("Supabase error:", error);
+    throw new Error("Failed to fetch heroes");
   }
-  return res.json()
+  return heroes;
 }
 
 export default async function Heroes() {
-  const heroes = await getHeroes()
+  let heroes = [];
+  try {
+    heroes = await getHeroes();
+  } catch (error) {
+    console.error("Error fetching heroes:", error);
+  }
 
   return (
     <div>
@@ -24,6 +40,5 @@ export default async function Heroes() {
         <p className="text-white">No heroes found.</p>
       )}
     </div>
-  )
+  );
 }
-
