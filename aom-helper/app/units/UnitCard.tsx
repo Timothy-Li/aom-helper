@@ -1,15 +1,15 @@
 interface Unit {
-  id: number
-  name: string
-  type: string
-  civilization: string
-  attack: number
-  armor: number
-  speed: number
-  cost_gold: number
-  cost_food: number
-  cost_wood: number
-  cost_favor: number
+  id: number;
+  name: string;
+  type: string;
+  civilization: string;
+  attack: number;
+  armor: number;
+  speed: number;
+  cost_gold: number;
+  cost_food: number;
+  cost_wood: number;
+  cost_favor: number;
 }
 
 export default function UnitCard({ unit }: { unit: Unit }) {
@@ -32,6 +32,5 @@ export default function UnitCard({ unit }: { unit: Unit }) {
         {unit.cost_favor > 0 && <li>Favor: {unit.cost_favor}</li>}
       </ul>
     </div>
-  )
+  );
 }
-
