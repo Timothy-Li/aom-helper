@@ -1,15 +1,31 @@
-import UnitCard from "./UnitCard"
+import { createClient } from "@supabase/supabase-js";
+import UnitCard from "./UnitCard";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error("Missing Supabase URL or anonymous key");
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function getUnits() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/units`)
-  if (!res.ok) {
-    throw new Error("Failed to fetch units")
+  const { data: units, error } = await supabase.from("soc_units").select("*");
+  if (error) {
+    console.error("Supabase error:", error);
+    throw new Error("Failed to fetch units");
   }
-  return res.json()
+  return units;
 }
 
 export default async function Units() {
-  const units = await getUnits()
+  let units = [];
+  try {
+    units = await getUnits();
+  } catch (error) {
+    console.error("Error fetching units:", error);
+  }
 
   return (
     <div>
@@ -24,6 +40,5 @@ export default async function Units() {
         <p className="text-white">No units found.</p>
       )}
     </div>
-  )
+  );
 }
-
