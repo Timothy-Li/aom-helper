@@ -2,6 +2,7 @@ import "./globals.css";
 import type React from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "Age of Mythology Guide",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <Navbar />
         <main className="container mx-auto mt-8 px-4 flex-grow">
           {children}
+          <Analytics />
         </main>
         <Footer />
       </body>
