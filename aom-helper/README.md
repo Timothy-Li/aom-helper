@@ -21,7 +21,7 @@ git clone <repository_url>
 ```
 
 ```
-cd age-of-mythology-helper
+cd aom-helper
 ```
 
 # Install Dependencies
