@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import HeroCard from "../heroes/HeroCard";
+import HeroCard from "./HeroCard";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,7 +21,6 @@ interface Hero {
   attack: number;
   armor: number;
   speed: number;
-  // Add other properties as needed
 }
 
 async function getHeroes() {
@@ -38,6 +37,7 @@ export default function HeroesList() {
   const [civilizationFilter, setCivilizationFilter] = useState<string | null>(
     null
   );
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     async function fetchHeroes() {
@@ -52,18 +52,21 @@ export default function HeroesList() {
   }, []);
 
   const filteredHeroes = heroes.filter((hero) => {
-    return (
-      civilizationFilter === null || hero.civilization === civilizationFilter
-    );
+    const matchesCivilization =
+      civilizationFilter === null || hero.civilization === civilizationFilter;
+    const matchesSearchQuery = hero.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCivilization && matchesSearchQuery;
   });
 
   return (
     <div>
       <div className="filters mb-6">
-        <div className="mb-4">
+        <div className="mb-4 flex flex-wrap gap-2 items-center">
           <button
             onClick={() => setCivilizationFilter(null)}
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               civilizationFilter === null
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -73,7 +76,7 @@ export default function HeroesList() {
           </button>
           <button
             onClick={() => setCivilizationFilter("Greek")}
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               civilizationFilter === "Greek"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -83,7 +86,7 @@ export default function HeroesList() {
           </button>
           <button
             onClick={() => setCivilizationFilter("Norse")}
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               civilizationFilter === "Norse"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -93,7 +96,7 @@ export default function HeroesList() {
           </button>
           <button
             onClick={() => setCivilizationFilter("Egyptian")}
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               civilizationFilter === "Egyptian"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -101,6 +104,13 @@ export default function HeroesList() {
           >
             Egyptian
           </button>
+          <input
+            type="text"
+            placeholder="Search heroes..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="p-2 border rounded ml-auto w-64 text-black"
+          />
         </div>
       </div>
       {filteredHeroes.length > 0 ? (

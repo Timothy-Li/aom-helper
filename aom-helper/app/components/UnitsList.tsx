@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useReducer } from "react";
-import UnitCard from "../units/UnitCard";
+import UnitCard from "./UnitCard";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -62,6 +62,7 @@ export default function UnitsList() {
     civilization: null,
     type: null,
   });
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
     async function fetchUnits() {
@@ -76,22 +77,26 @@ export default function UnitsList() {
   }, []);
 
   const filteredUnits = units.filter((unit) => {
-    return (
-      (filterState.civilization === null ||
-        unit.civilization === filterState.civilization) &&
-      (filterState.type === null || unit.type === filterState.type)
-    );
+    const matchesCivilization =
+      filterState.civilization === null ||
+      unit.civilization === filterState.civilization;
+    const matchesType =
+      filterState.type === null || unit.type === filterState.type;
+    const matchesSearchQuery = unit.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCivilization && matchesType && matchesSearchQuery;
   });
 
   return (
     <div>
       <div className="filters mb-6">
-        <div className="mb-4">
+        <div className="mb-4 flex flex-wrap gap-2 items-center">
           <button
             onClick={() =>
               dispatch({ type: "SET_CIVILIZATION", civilization: null })
             }
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               filterState.civilization === null
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -103,7 +108,7 @@ export default function UnitsList() {
             onClick={() =>
               dispatch({ type: "SET_CIVILIZATION", civilization: "Greek" })
             }
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               filterState.civilization === "Greek"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -115,7 +120,7 @@ export default function UnitsList() {
             onClick={() =>
               dispatch({ type: "SET_CIVILIZATION", civilization: "Norse" })
             }
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               filterState.civilization === "Norse"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -127,7 +132,7 @@ export default function UnitsList() {
             onClick={() =>
               dispatch({ type: "SET_CIVILIZATION", civilization: "Egyptian" })
             }
-            className={`ml-2 p-1 border rounded ${
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
               filterState.civilization === "Egyptian"
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
@@ -135,12 +140,19 @@ export default function UnitsList() {
           >
             Egyptian
           </button>
+          <input
+            type="text"
+            placeholder="Search units..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="p-2 border rounded ml-auto w-64 text-black"
+          />
         </div>
         {filterState.civilization && (
-          <div className="mb-4">
+          <div className="mb-4 flex flex-wrap gap-2">
             <button
               onClick={() => dispatch({ type: "SET_TYPE", unitType: null })}
-              className={`ml-2 p-1 border rounded ${
+              className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
                 filterState.type === null
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
@@ -152,7 +164,7 @@ export default function UnitsList() {
               onClick={() =>
                 dispatch({ type: "SET_TYPE", unitType: "Myth Unit" })
               }
-              className={`ml-2 p-1 border rounded ${
+              className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
                 filterState.type === "Myth Unit"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
@@ -162,7 +174,7 @@ export default function UnitsList() {
             </button>
             <button
               onClick={() => dispatch({ type: "SET_TYPE", unitType: "Siege" })}
-              className={`ml-2 p-1 border rounded ${
+              className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
                 filterState.type === "Siege"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
@@ -172,7 +184,7 @@ export default function UnitsList() {
             </button>
             <button
               onClick={() => dispatch({ type: "SET_TYPE", unitType: "Archer" })}
-              className={`ml-2 p-1 border rounded ${
+              className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
                 filterState.type === "Archer"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
@@ -184,7 +196,7 @@ export default function UnitsList() {
               onClick={() =>
                 dispatch({ type: "SET_TYPE", unitType: "Infantry" })
               }
-              className={`ml-2 p-1 border rounded ${
+              className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
                 filterState.type === "Infantry"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
@@ -196,7 +208,7 @@ export default function UnitsList() {
               onClick={() =>
                 dispatch({ type: "SET_TYPE", unitType: "Cavalry" })
               }
-              className={`ml-2 p-1 border rounded ${
+              className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
                 filterState.type === "Cavalry"
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
