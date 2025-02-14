@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-echo "✅ Testing pre-commit hook success!"git 
+echo "✅ Testing pre-commit hook success!"
