@@ -94,67 +94,73 @@ export default function UnitCounters() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
+    <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-primary">Unit Counters</h1>
-      <div className="mb-4 flex flex-wrap gap-2 items-center">
-        {Object.keys(unitCounters).map((civilization) => (
-          <button
-            key={civilization}
-            onClick={() => {
-              setSelectedCivilization(civilization);
-              setSelectedUnit(null);
-              setResults([]);
-            }}
-            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
-              selectedCivilization === civilization
-                ? "bg-blue-500 text-white"
-                : "bg-white text-black"
-            }`}
-          >
-            {civilization}
-          </button>
-        ))}
-      </div>
-      {selectedCivilization && (
+      <p className="text-white mb-6">
+        This is a simple guide to what units are most effective at countering
+        other units.
+      </p>
+      <div className="bg-gray-800 rounded-lg shadow-lg p-6">
         <div className="mb-4 flex flex-wrap gap-2 items-center">
-          {unitCounters[selectedCivilization].map((unitCounter) => (
+          {Object.keys(unitCounters).map((civilization) => (
             <button
-              key={unitCounter.unit}
-              onClick={() => setSelectedUnit(unitCounter.unit)}
+              key={civilization}
+              onClick={() => {
+                setSelectedCivilization(civilization);
+                setSelectedUnit(null);
+                setResults([]);
+              }}
               className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
-                selectedUnit === unitCounter.unit
+                selectedCivilization === civilization
                   ? "bg-blue-500 text-white"
                   : "bg-white text-black"
               }`}
             >
-              {unitCounter.unit}
+              {civilization}
             </button>
           ))}
         </div>
-      )}
-      <button
-        onClick={handleCounter}
-        className="p-2 bg-blue-500 text-white rounded shadow-md transition-transform transform hover:scale-105"
-      >
-        Counter
-      </button>
-      {results.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-2xl font-semibold mb-4 text-primary">
-            Counters:
-          </h2>
-          <ul className="list-disc list-inside text-white">
-            {results.map((counter, index) => (
-              <li key={index}>{counter}</li>
+        {selectedCivilization && (
+          <div className="mb-4 flex flex-wrap gap-2 items-center">
+            {unitCounters[selectedCivilization].map((unitCounter) => (
+              <button
+                key={unitCounter.unit}
+                onClick={() => setSelectedUnit(unitCounter.unit)}
+                className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
+                  selectedUnit === unitCounter.unit
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-black"
+                }`}
+              >
+                {unitCounter.unit}
+              </button>
             ))}
-          </ul>
-        </div>
-      )}
-      {results.length === 0 && selectedUnit && (
-        <p className="text-white mt-6">
-          No counters found for "{selectedUnit}".
-        </p>
-      )}
+          </div>
+        )}
+        <button
+          onClick={handleCounter}
+          className="p-2 bg-blue-500 text-white rounded shadow-md transition-transform transform hover:scale-105"
+        >
+          Counter
+        </button>
+        {results.length > 0 && (
+          <div className="mt-6">
+            <h2 className="text-2xl font-semibold mb-4 text-primary">
+              Counters:
+            </h2>
+            <ul className="list-disc list-inside text-white">
+              {results.map((counter, index) => (
+                <li key={index}>{counter}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {results.length === 0 && selectedUnit && (
+          <p className="text-white mt-6">
+            No counters found for "{selectedUnit}".
+          </p>
+        )}
+      </div>
     </div>
   );
 }
