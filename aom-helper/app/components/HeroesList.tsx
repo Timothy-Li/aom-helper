@@ -43,6 +43,7 @@ export default function HeroesList() {
     async function fetchHeroes() {
       try {
         const heroes = await getHeroes();
+        console.log("Fetched Heroes:", heroes);
         setHeroes(heroes);
       } catch (error) {
         console.error("Error fetching heroes:", error);
@@ -103,6 +104,16 @@ export default function HeroesList() {
             }`}
           >
             Egyptian
+          </button>
+          <button
+            onClick={() => setCivilizationFilter("Atlantean")}
+            className={`p-2 border rounded shadow-md transition-transform transform hover:scale-105 ${
+              civilizationFilter === "Atlantean"
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black"
+            }`}
+          >
+            Atlantean
           </button>
           <input
             type="text"

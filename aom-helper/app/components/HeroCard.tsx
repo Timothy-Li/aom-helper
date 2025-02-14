@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Hero {
   id: number;
   name: string;
@@ -10,8 +12,15 @@ interface Hero {
 }
 
 export default function HeroCard({ hero }: { hero: Hero }) {
+  const heroUrl = `/hero-info/${hero.name.toLowerCase()}`;
+  console.log(`Hero URL: ${heroUrl}`);
+  console.log(`Hero Data:`, hero);
+
   return (
-    <div className="card p-6 shadow-lg bg-gray-800 rounded-lg">
+    <Link
+      href={heroUrl}
+      className="card p-6 shadow-lg bg-gray-800 rounded-lg block hover:scale-105 transition-transform"
+    >
       <h2 className="text-xl font-semibold mb-2 text-primary">{hero.name}</h2>
       <p className="text-sm text-gray-300 mb-2">
         {hero.type} - {hero.civilization}
@@ -24,6 +33,6 @@ export default function HeroCard({ hero }: { hero: Hero }) {
         <li>Armor: {hero.armor}</li>
         <li>Speed: {hero.speed}</li>
       </ul>
-    </div>
+    </Link>
   );
 }
