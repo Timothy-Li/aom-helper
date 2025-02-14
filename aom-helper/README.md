@@ -65,5 +65,5 @@ Unit Testing: Ensures the stability of the project with tests for critical featu
 
 # Deployed App
 The Age of Mythology Helper is already deployed and can be accessed at the following link:
-[AOM Helper App](aom-helper-isj1.vercel.app/)
+[AOM Helper App](https://aom-helper-isj1.vercel.app/)
 
