@@ -157,7 +157,7 @@ export default function UnitCounters() {
         )}
         {results.length === 0 && selectedUnit && (
           <p className="text-white mt-6">
-            No counters found for "{selectedUnit}".
+            Please click counter "{selectedUnit}".
           </p>
         )}
       </div>
