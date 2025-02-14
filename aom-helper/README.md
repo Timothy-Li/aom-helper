@@ -1,10 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Age of Mythology Helper
+Welcome to the Age of Mythology Helper! This project provides a comprehensive guide to heroes, units, and gameplay data for Age of Mythology. It includes detailed information on the game’s heroes and units, counters for different units, and other essential gameplay insights. The project is built using Next.js, TypeScript, and Tailwind CSS.
 
-## Getting Started
+# Features
+Hero Data: Learn about the various heroes, their attributes, and special abilities.
+Unit Data: Detailed descriptions of units, their stats, and use cases in battle.
+Unit Counters: A helpful guide on which units are strong or weak against others.
+Getting Started
+Prerequisites
+To get started with this project, you'll need to have Node.js installed. You can download it from nodejs.org.
 
-First, run the development server:
+Additionally, make sure you have npm, yarn, pnpm, or bun for managing dependencies.
 
-```bash
+Clone the Repository
+First, clone this repository to your local machine:
+
+bash
+Copy
+```
+git clone <repository_url>
+```
+
+```
+cd aom-helper
+```
+
+# Install Dependencies
+Install the required dependencies by running one of the following commands:
+
+```
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+# Run the Development Server
+Once dependencies are installed, run the development server:
+
+```
 npm run dev
 # or
 yarn dev
@@ -14,25 +50,20 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now, open http://localhost:3000 in your browser to view the helper.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The app will automatically reload as you make changes to the code.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# Technologies Used
+Next.js: A powerful React framework for building fast and scalable web applications.
+TypeScript: A statically typed superset of JavaScript, which helps with early error detection and improved code quality.
+Tailwind CSS: A utility-first CSS framework for building modern, responsive designs.
+Sentry: For error tracking and monitoring application health.
+Unit Testing: Ensures the stability of the project with tests for critical features.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Deployed App
+The Age of Mythology Helper is already deployed and can be accessed at the following link:
+[AOM Helper App](aom-helper-isj1.vercel.app/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-Authors:
